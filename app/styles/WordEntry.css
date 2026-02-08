@@ -1,0 +1,7 @@
+.blank-letter {
+  display: inline-block;
+  width: 2em;
+  height: 2px;
+  margin: 0 5px;
+  background-color: #000;
+}

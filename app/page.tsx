@@ -17,7 +17,7 @@ export default function Home() {
       />
 
       <WordEntry
-        className="border-2 sm:w-full md:w-1/2 pt-6 pd-6 pr-6 pl-6 text-center mt-20 border-gray-300 rounded-lg bg-white"
+        className="border-2 sm:w-full md:w-1/2 pt-6 pb-2 pr-6 pl-6 text-center mt-20 border-gray-300 rounded-lg bg-white"
         wrongGuessCounter={setWrongGuesses}
         wrongGuessNumber={wrongGuesses}
       />

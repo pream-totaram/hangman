@@ -1,6 +1,7 @@
 'use client'
 
 import { KeyboardEventHandler, useEffect, useRef, useState } from "react";
+import WordService from '../services/WordService'
 
 interface WordEntryProps {
   className?: string
@@ -8,13 +9,15 @@ interface WordEntryProps {
   wrongGuessCounter?: (numWrongGuesses: number) => void
 
 }
+const wordService = new WordService();
+const WORD = wordService.getWord();
+
 
 export default function WordEntry({
   className = '',
   wrongGuessCounter,
   wrongGuessNumber
 }: WordEntryProps) {
-  const WORD = 'test';
   const divRef = useRef<HTMLDivElement>(null);
 
   const [updatedIndices, setUpdatedIndices] = useState<number[]>([]);

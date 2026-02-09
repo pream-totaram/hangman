@@ -1,6 +1,6 @@
 'use client'
 
-import { KeyboardEventHandler, useEffect, useRef } from "react";
+import { KeyboardEventHandler, useEffect, useRef, useState } from "react";
 
 interface WordEntryProps {
   className?: string
@@ -17,6 +17,8 @@ export default function WordEntry({
   const WORD = 'test';
   const divRef = useRef<HTMLDivElement>(null);
 
+  const [updatedIndices, setUpdatedIndices] = useState<number[]>([]);
+
   useEffect(() => {
     divRef.current?.focus();
   }, []);
@@ -24,6 +26,11 @@ export default function WordEntry({
   const handleKeyPress: KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (!WORD.includes(event.key)) {
       wrongGuessCounter?.((wrongGuessNumber ?? 0) + 1)
+    } else {
+
+      let matches = [...WORD.matchAll(new RegExp(event.key, "gi"))];
+      let indices = matches.map((el) => el.index)
+      setUpdatedIndices((prev) => [...prev, ...indices]);
     }
   }
 
@@ -34,7 +41,9 @@ export default function WordEntry({
       onKeyDown={handleKeyPress}
       tabIndex={0}>
       {WORD.split("").map((letter, index) => (
-        <span className="blank-letter" key={'letter-' + index}></span>
+        <span className="letter" key={index}>
+          {updatedIndices.includes(index) ? letter : ""}
+        </span>
       ))}
     </div>
   )

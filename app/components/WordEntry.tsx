@@ -9,9 +9,6 @@ interface WordEntryProps {
   wrongGuessCounter?: (numWrongGuesses: number) => void
 
 }
-const wordService = new WordService();
-const WORD = wordService.getWord();
-
 
 export default function WordEntry({
   className = '',
@@ -21,17 +18,21 @@ export default function WordEntry({
   const divRef = useRef<HTMLDivElement>(null);
 
   const [updatedIndices, setUpdatedIndices] = useState<number[]>([]);
+  const [selectedWord, setSelectedWord] = useState<string>("");
 
   useEffect(() => {
     divRef.current?.focus();
+    const wordService = new WordService();
+    setSelectedWord(wordService.getWord());
+
   }, []);
 
   const handleKeyPress: KeyboardEventHandler<HTMLDivElement> = (event) => {
-    if (!WORD.includes(event.key)) {
+    if (!selectedWord.includes(event.key)) {
       wrongGuessCounter?.((wrongGuessNumber ?? 0) + 1)
     } else {
 
-      let matches = [...WORD.matchAll(new RegExp(event.key, "gi"))];
+      let matches = [...selectedWord.matchAll(new RegExp(event.key, "gi"))];
       let indices = matches.map((el) => el.index)
       setUpdatedIndices((prev) => [...prev, ...indices]);
     }
@@ -43,7 +44,7 @@ export default function WordEntry({
       className={className}
       onKeyDown={handleKeyPress}
       tabIndex={0}>
-      {WORD.split("").map((letter, index) => (
+      {selectedWord.split("").map((letter, index) => (
         <span className="letter" key={index}>
           {updatedIndices.includes(index) ? letter : ""}
         </span>

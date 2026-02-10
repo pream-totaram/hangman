@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import './styles/WordEntry.css';
+@import './styles/Keyboard.css';
 
 :root {
   --background: #ffffff;

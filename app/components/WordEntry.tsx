@@ -18,7 +18,9 @@ const WordEntry = forwardRef<HTMLDivElement, WordEntryProps>(
     useEffect(() => {
       divRef.current?.focus();
       const wordService = new WordService();
-      setSelectedWord(wordService.getWord());
+      wordService.getWord().then((data) => {
+        setSelectedWord(data);
+      });
 
     }, []);
 

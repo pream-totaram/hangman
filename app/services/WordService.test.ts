@@ -1,11 +1,8 @@
-import { describe, it } from "node:test";
+import { test, expect } from 'vitest';
 import WordService from './WordService'
-import assert from "node:assert/strict";
 
-describe("Word Service", () => {
+test("Word Service Should return Ender's Game", async () => {
   const wordService = new WordService();
-  it("Should return Ender's Game", async () => {
-    const result = await wordService.getWord();
-    assert.strictEqual(result, "Ender's Game");
-  })
+  const result = await wordService.getWord();
+  expect(result).toBe("Ender's Game")
 })

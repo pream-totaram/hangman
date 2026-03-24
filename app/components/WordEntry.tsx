@@ -1,5 +1,5 @@
 import { forwardRef, KeyboardEventHandler, useEffect, useImperativeHandle, useRef, useState } from "react";
-import WordService from '../services/WordService'
+import WordService from '../services/client/WordService'
 
 interface WordEntryProps {
   className?: string
